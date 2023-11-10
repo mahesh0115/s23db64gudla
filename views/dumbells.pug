@@ -4,7 +4,7 @@ block content
   h1 Dumbells Class
   .container-fluid
     .row
-      - let dumbells = [{ dumbell_name: 'Heavy Dumbell', weight: 20, material: 'Iron' },{ dumbell_name: 'Light Dumbell', weight: 10, material: 'Plastic' },{ dumbell_name: 'Medium Dumbell', weight: 15, material: 'Steel' }]
+      - let dumbells = results
       each dumbell, index in dumbells
         .col-sm-4(style="cursor: pointer", onclick=`buy(${index})`) 
           h4= dumbell.dumbell_name
