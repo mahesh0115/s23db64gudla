@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  - const image_names = ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg']
+  - for (let i = 0; i < 3; i++)
+    - const randomIndex = Math.floor(Math.random() * 5)
+    img(src=`/images/${image_names[randomIndex]}`, alt=`Dumbell Image ${image_names[randomIndex]}`, width="300", height="300")
