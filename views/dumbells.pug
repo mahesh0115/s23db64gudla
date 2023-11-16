@@ -8,10 +8,10 @@ block content
       each dumbell, index in dumbells
         .col-sm-4(style="cursor: pointer", onclick=`buy(${index})`) 
           h4= dumbell.dumbell_name
-          p Dumbell Name: #{dumbell.dumbell_name}
-          p Weight: #{dumbell.weight} lbs
-          p Material: #{dumbell.material}
+          div Dumbell Name: #{dumbell.dumbell_name}
+          div Weight: #{dumbell.weight} lbs
+          div Material: #{dumbell.material}
   script.
     function buy(index) {
       alert(`You purchased item ${index}`);
-    }  
+    }

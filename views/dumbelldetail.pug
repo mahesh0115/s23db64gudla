@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to details
+  else
+  - let dumbellid = toShow._id
+  - let dumbellname = toShow.dumbell_name
+  - let weight = toShow.weight
+  - let material = toShow.material
+
+  link(rel='stylesheet', href='style.css')
+
+  style.
+    .dumbellAttr {
+      background-color: aquamarine;
+      margin-right: 3px;
+      padding: 10px; /* Added padding for better spacing */
+      border: 1px solid #333; /* Added border */
+      border-radius: 5px; /* Rounded corners for a nicer look */
+      color: #333; /* Text color */
+    }
+
+    /* Additional styles for specific elements */
+    .dumbellAttr h2 {
+      color: navy; /* Color for the headers */
+    }
+
+  div
+    div.row
+      div(class='dumbellAttr mr-3')
+        h2 Dumbell ID is:
+        div #{dumbellid}
+ 
+    div.row
+      div(class='dumbellAttr mr-3')
+        h2 Dumbell name is:
+        div #{dumbellname}
+ 
+    div.row
+      div(class='dumbellAttr mr-3')
+        h2 Dumbell weight is:
+        div #{weight}
+
+    div.row
+      div(class='dumbellAttr mr-3')
+        
