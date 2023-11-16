@@ -1,77 +1,73 @@
 const dumbells = require('../models/dumbells');
 var Dumbell = require('../models/dumbells');
 // List of all Costumes
-exports.dumbell_list = function(req, res) {
-res.send('NOT IMPLEMENTED: Dumbell list');
+exports.dumbell_list = function (req, res) {
+    res.send('NOT IMPLEMENTED: Dumbell list');
 };
 // for a specific Costume.
-exports.dumbell_detail = async function(req, res) {
-console.log("detail" + req.params.id)
-try {
-result = await dumbells.findById( req.params.id)
-res.send(result)
-} catch (error) {
-res.status(500)
-res.send(`{"error": document for id ${req.params.id} not found`);
-}
+exports.dumbell_detail = async function (req, res) {
+    console.log("detail" + req.params.id)
+    try {
+        result = await dumbells.findById(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
 };
 
 // Handle Costume create on POST.
-exports.dumbell_create_post = function(req, res) {
-res.send('NOT IMPLEMENTED: Dumbell create POST');
-};
-// Handle Costume delete form on DELETE.
-exports.dumbell_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: Dumbell delete DELETE ' + req.params.id);
+exports.dumbell_create_post = function (req, res) {
+    res.send('NOT IMPLEMENTED: Dumbell create POST');
 };
 //Handle Costume update form on PUT.
-exports.dumbell_update_put = async function(req, res) {
-console.log(`update on id ${req.params.id} with body
+exports.dumbell_update_put = async function (req, res) {
+    console.log(`update on id ${req.params.id} with body
 ${JSON.stringify(req.body)}`)
-try {
-let toUpdate = await dumbells.findById( req.params.id)
-// Do updates of properties
-if(req.body.dumbell_name)
-toUpdate.dumbell_name = req.body.dumbell_name;
-if(req.body.weight) toUpdate.weight = req.body.weight;
-if(req.body.material) toUpdate.material = req.body.material;
-let result = await toUpdate.save();
-console.log("Sucess " + result)
-res.send(result)
-} catch (err) {
-res.status(500)
-res.send(`{"error": ${err}: Update for id ${req.params.id}
+    try {
+        let toUpdate = await dumbells.findById(req.params.id)
+        // Do updates of properties
+        if (req.body.dumbell_name)
+            toUpdate.dumbell_name = req.body.dumbell_name;
+        if (req.body.weight) toUpdate.weight = req.body.weight;
+        if (req.body.material) toUpdate.material = req.body.material;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id}
 failed`);
-}
+    }
 };
 
 // List of all Costumes
-exports.dumbell_list = async function(req, res) {
-    try{
-    theDumbell = await Dumbell.find();
-    res.send(theDumbell);
-    }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
-    }
-    };
-
-    // VIEWS
-// Handle a show all view
-exports.dumbell_view_all_Page = async function(req, res) {
-    try{
+exports.dumbell_list = async function (req, res) {
+    try {
         theDumbell = await Dumbell.find();
-    res.render('dumbells', { title: 'Dumbells Search Results', results: theDumbell });
+        res.send(theDumbell);
     }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
+    catch (err) {
+        res.status(500);
+        res.send(`{"error": ${err}}`);
     }
-    };
+};
 
-    // Handle Costume create on POST.
-exports.dumbell_create_post = async function(req, res) {
+// VIEWS
+// Handle a show all view
+exports.dumbell_view_all_Page = async function (req, res) {
+    try {
+        theDumbell = await Dumbell.find();
+        res.render('dumbells', { title: 'Dumbells Search Results', results: theDumbell });
+    }
+    catch (err) {
+        res.status(500);
+        res.send(`{"error": ${err}}`);
+    }
+};
+
+// Handle Costume create on POST.
+exports.dumbell_create_post = async function (req, res) {
     console.log(req.body)
     let document = new Dumbell();
     // We are looking for a body, since POST does not have query parameters.
@@ -81,12 +77,24 @@ exports.dumbell_create_post = async function(req, res) {
     document.dumbell_name = req.body.dumbell_name;
     document.weight = req.body.weight;
     document.material = req.body.material;
-    try{
-    let result = await document.save();
-    res.send(result);
+    try {
+        let result = await document.save();
+        res.send(result);
     }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
+    catch (err) {
+        res.status(500);
+        res.send(`{"error": ${err}}`);
     }
-    };
+};
+// Handle dumbell delete on DELETE.
+exports.dumbell_delete = async function (req, res) {
+    console.log("delete " + req.params.id)
+    try {
+        result = await Dumbell.findByIdAndDelete(req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
+    }
+};
