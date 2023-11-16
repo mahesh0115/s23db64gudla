@@ -4,3 +4,6 @@ var router = express.Router();
 /* GET costumes */
 router.get('/', dumbell_controlers.dumbell_view_all_Page );
 module.exports = router;
+
+// GET request for one costume.
+router.get('/dumbells/:id', dumbell_controlers.dumbell_detail)

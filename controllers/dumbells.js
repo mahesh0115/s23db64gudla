@@ -1,12 +1,21 @@
+const dumbells = require('../models/dumbells');
 var Dumbell = require('../models/dumbells');
 // List of all Costumes
 exports.dumbell_list = function(req, res) {
 res.send('NOT IMPLEMENTED: Dumbell list');
 };
 // for a specific Costume.
-exports.dumbell_detail = function(req, res) {
-res.send('NOT IMPLEMENTED: Dumbell detail: ' + req.params.id);
+exports.dumbell_detail = async function(req, res) {
+console.log("detail" + req.params.id)
+try {
+result = await dumbells.findById( req.params.id)
+res.send(result)
+} catch (error) {
+res.status(500)
+res.send(`{"error": document for id ${req.params.id} not found`);
+}
 };
+
 // Handle Costume create on POST.
 exports.dumbell_create_post = function(req, res) {
 res.send('NOT IMPLEMENTED: Dumbell create POST');
@@ -15,9 +24,25 @@ res.send('NOT IMPLEMENTED: Dumbell create POST');
 exports.dumbell_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: Dumbell delete DELETE ' + req.params.id);
 };
-// Handle Costume update form on PUT.
-exports.dumbell_update_put = function(req, res) {
-res.send('NOT IMPLEMENTED: Dumbell update PUT' + req.params.id);
+//Handle Costume update form on PUT.
+exports.dumbell_update_put = async function(req, res) {
+console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+try {
+let toUpdate = await dumbells.findById( req.params.id)
+// Do updates of properties
+if(req.body.dumbell_name)
+toUpdate.dumbell_name = req.body.dumbell_name;
+if(req.body.weight) toUpdate.weight = req.body.weight;
+if(req.body.material) toUpdate.material = req.body.material;
+let result = await toUpdate.save();
+console.log("Sucess " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": ${err}: Update for id ${req.params.id}
+failed`);
+}
 };
 
 // List of all Costumes
