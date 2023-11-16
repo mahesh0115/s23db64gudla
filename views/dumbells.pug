@@ -11,6 +11,8 @@ block content
           div Dumbell Name: #{dumbell.dumbell_name}
           div Weight: #{dumbell.weight} lbs
           div Material: #{dumbell.material}
+          - let destination = `dispatch("/costumes/update?id=${dumbell._id}")`
+          button.btn(class="btn-primary ml-1", onclick=destination) Update
   script.
     function buy(index) {
       alert(`You purchased item ${index}`);
