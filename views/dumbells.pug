@@ -2,6 +2,8 @@ extends layout
 
 block content
   h1 Dumbells Class
+  - let destination = `dispatch(\"/dumbells/create")`
+  button.btn(class="btn-primary ml-1", onclick=destination) Create Dumbell
   .container-fluid
     .row
       - let dumbells = results
@@ -11,9 +13,16 @@ block content
           div Dumbell Name: #{dumbell.dumbell_name}
           div Weight: #{dumbell.weight} lbs
           div Material: #{dumbell.material}
-          - let destination = `dispatch("/costumes/update?id=${dumbell._id}")`
-          button.btn(class="btn-primary ml-1", onclick=destination) Update
+          - let destination_1 = `dispatch(\"/dumbells/update?id=${dumbell._id}\")`
+          - let destination_2 = `dispatch(\"/dumbells/detail?id=${dumbell._id}\")`
+          - let destination_3 = `dispatch(\"/dumbells/delete?id=${dumbell._id}\")`
+          button.btn(class="btn-primary ml-1", onclick=destination_1) Update
+          button.btn(class="btn-primary ml-1", onclick=destination_2) Detail
+          button.btn(class="btn-primary ml-1", onclick=destination_3) Delete
   script.
     function buy(index) {
       alert(`You purchased item ${index}`);
+    }
+    function dispatch(path){
+      window.location.href = path;
     }

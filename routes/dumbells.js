@@ -1,5 +1,6 @@
 var express = require('express');
 const dumbell_controlers= require('../controllers/dumbells');
+const passport = require('passport');
 var router = express.Router();
 /* GET costumes */
 router.get('/', dumbell_controlers.dumbell_view_all_Page );
@@ -16,11 +17,14 @@ const secured = (req, res, next) => {
 /* GET detail costume page */
 router.get('/detail', dumbell_controlers.dumbell_view_one_Page);
 /* GET create costume page */
-router.get('/create', dumbell_controlers.dumbell_create_Page);
+router.get('/create',secured, dumbell_controlers.dumbell_create_Page);
 /* GET create update page */
 router.get('/update',secured, dumbell_controlers.dumbell_update_Page);
 /* GET delete costume page */
-router.get('/delete', dumbell_controlers.dumbell_delete_Page);
+router.get('/delete',secured, dumbell_controlers.dumbell_delete_Page);
+router.post('/login', passport.authenticate('local'), function(req, res) {
+    res.redirect('/');
+    });
 
 
 
